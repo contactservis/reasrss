@@ -1,20 +1,26 @@
 <?php
-// url  до источника rss
-$lenta_url_rss = 'https://lenta.ru/rss';
-// количество выводимых записей
-$count_view_item = 5;
+function getItemRSS($Count)
+{
+    // url  до источника rss
+    $lenta_url_rss = 'https://lenta.ru/rss';
+    // количество выводимых записей
+    $count_view_item = $Count;
 
-$lenta_content = file_get_contents($lenta_url_rss);
-$lenta_item_rss = new SimpleXmlElement($lenta_content);
+    $lenta_content = file_get_contents($lenta_url_rss);
+    $lenta_item_rss = new SimpleXmlElement($lenta_content);
 
-$arr_content_rss = array();
+    $arr_content_rss = array();
 
-foreach($lenta_item_rss -> channel -> item as $item) {
-    $arr_content_rss[] = $item;
+    foreach ($lenta_item_rss->channel->item as $item) {
+        $arr_content_rss[] = $item;
+    }
+
+    // обрезаем массив до нужного нам количчества записей
+    $arr_content_rss = array_slice($arr_content_rss, 0, $count_view_item);
+    return $arr_content_rss;
 }
 
-// обрезаем массив до нужного нам количчества записей
-$arr_content_rss = array_slice($arr_content_rss, 0, $count_view_item);
+$arr_content_rss = getItemRSS(3);
 
 foreach ($arr_content_rss as $item){
     ?>
