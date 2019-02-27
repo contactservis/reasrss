@@ -33,7 +33,6 @@ class ViewItemRSS
 $ViewItem = new ViewItemRSS();
 $arr_content_rss = $ViewItem->viewItem(5);
 
-
 foreach ($arr_content_rss as $item){
     ?>
     <div style="width: 500px;margin: 50px;">
